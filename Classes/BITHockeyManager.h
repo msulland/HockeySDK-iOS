@@ -437,6 +437,8 @@
 /// @name Debug Logging
 ///-----------------------------------------------------------------------------
 
+@property (nonatomic, assign) BITLogLevel logLevel;
+
 /**
  Flag that determines whether additional logging output should be generated
  by the manager and all modules.

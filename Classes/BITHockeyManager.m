@@ -400,6 +400,11 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
 #endif /* HOCKEYSDK_FEATURE_AUTHENTICATOR */
 }
 
+- (void)setLogLevel:(BITLogLevel)logLevel {
+  _logLevel = logLevel;
+  BITHockeyLogger.currentLogLevel = logLevel;
+}
+
 - (void)modifyKeychainUserValue:(NSString *)value forKey:(NSString *)key {
   NSError *error = nil;
   BOOL success = YES;
