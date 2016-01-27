@@ -217,7 +217,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
 
 - (void)showFeedbackListView {
   if (_currentFeedbackListViewController) {
-    BITHockeyLog(@"INFO: update view already visible, aborting");
+    BITHockeyLogDebug(@"INFO: update view already visible, aborting");
     return;
   }
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -242,7 +242,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
 
 - (void)showFeedbackComposeViewWithPreparedItems:(NSArray *)items{
   if (_currentFeedbackComposeViewController) {
-    BITHockeyLog(@"INFO: update view already visible, aborting");
+    BITHockeyLogDebug(@"INFO: update view already visible, aborting");
     return;
   }
   BITFeedbackComposeViewController *composeView = [self feedbackComposeViewController];
@@ -888,7 +888,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
   
   // build request & send
   NSString *url = [NSString stringWithFormat:@"%@%@", self.serverURL, parameter];
-  BITHockeyLog(@"INFO: sending api request to %@", url);
+  BITHockeyLogDebug(@"INFO: sending api request to %@", url);
   
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:1 timeoutInterval:10.0];
   [request setHTTPMethod:httpMethod];
@@ -1011,7 +1011,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
       [self performSelector:@selector(fetchMessageUpdates) withObject:nil afterDelay:0.2];
     } else if ([responseData length]) {
       NSString *responseString = [[NSString alloc] initWithBytes:[responseData bytes] length:[responseData length] encoding: NSUTF8StringEncoding];
-      BITHockeyLog(@"INFO: Received API response: %@", responseString);
+      BITHockeyLogDebug(@"INFO: Received API response: %@", responseString);
       
       if (responseString && [responseString dataUsingEncoding:NSUTF8StringEncoding]) {
         NSError *error = NULL;
@@ -1026,7 +1026,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
                                                 code:BITFeedbackAPIServerReturnedEmptyResponse
                                             userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Server returned empty response.", NSLocalizedDescriptionKey, nil]]];
         } else {
-          BITHockeyLog(@"INFO: Received API response: %@", responseString);
+          BITHockeyLogDebug(@"INFO: Received API response: %@", responseString);
           NSString *status = [feedDict objectForKey:@"status"];
           if ([status compare:@"success"] != NSOrderedSame) {
             [self reportError:[NSError errorWithDomain:kBITFeedbackErrorDomain
@@ -1145,7 +1145,7 @@ NSString *const kBITFeedbackUpdateAttachmentThumbnail = @"BITFeedbackUpdateAttac
       if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1){
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenshotNotificationReceived:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
       } else {
-        BITHockeyLog("WARNING: BITFeedbackObservationModeOnScreenshot requires iOS 7 or later.");
+        BITHockeyLogWarning(@"WARNING: BITFeedbackObservationModeOnScreenshot requires iOS 7 or later.");
       }
       
       self.screenshotNotificationEnabled = YES;
