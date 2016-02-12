@@ -450,7 +450,7 @@
  
  *Default*: _NO_
  */
-@property (nonatomic, assign, getter=isDebugLogEnabled) BOOL debugLogEnabled;
+@property (nonatomic, assign, getter=isDebugLogEnabled) BOOL debugLogEnabled DEPRECATED_MSG_ATTRIBUTE("Use logLevel instead!");
 
 
 ///-----------------------------------------------------------------------------
