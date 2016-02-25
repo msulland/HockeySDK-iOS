@@ -11,7 +11,7 @@
 #define BITHockeyLogVerbose(format, ...) BITHockeyLog(BITLogLevelVerbose, (^{ return [NSString stringWithFormat:(format), ##__VA_ARGS__]; }))
 
 typedef NSString *(^BITLogMessageProvider)(void);
-typedef void (^BITLogHandler)(BITLogMessageProvider, BITLogLevel, const char *, const char *, NSUInteger);
+typedef void (^BITLogHandler)(BITLogMessageProvider, BITLogLevel, const char *, const char *, uint);
 
 @interface BITHockeyLogger : NSObject
 
@@ -19,6 +19,6 @@ typedef void (^BITLogHandler)(BITLogMessageProvider, BITLogLevel, const char *, 
 + (void)setCurrentLogLevel:(BITLogLevel)currentLogLevel;
 + (void)setLogHandler:(BITLogHandler)logHandler;
 
-+ (void)logMessage:(BITLogMessageProvider)messageProvider level:(BITLogLevel)loglevel file:(const char *)file function:(const char *)function line:(int)line;
++ (void)logMessage:(BITLogMessageProvider)messageProvider level:(BITLogLevel)loglevel file:(const char *)file function:(const char *)function line:(uint)line;
 
 @end
